@@ -1,5 +1,7 @@
 package hiber.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,12 +21,25 @@ public class User {
    @Column(name = "email")
    private String email;
 
+   @OneToOne( cascade = CascadeType.ALL , mappedBy = "user")
+   private Car car;
+   @Override
+   public  String toString(){ return "User" + id + "\n" + "Name : " + firstName + "\n" + "Lastname : " + lastName +
+           "\n" + "Email : " + email + "\n" + "Car : " + car.toString();
+   }
    public User() {}
    
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
+   }
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
    }
 
    public Long getId() {
